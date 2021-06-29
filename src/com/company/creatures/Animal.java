@@ -1,6 +1,9 @@
-package com.company;
+package com.company.creatures;
 
-public class Animal implements Sellable {
+import com.company.Human;
+import com.company.Sellable;
+
+public abstract class Animal implements Sellable, Feedable{
     final private String species;
     private Double weight;
 
@@ -34,9 +37,21 @@ public class Animal implements Sellable {
 
     }
 
+    @Override
     public void feed() {
         if (weight > 0) {
             this.weight += 1;
+            System.out.println("Thx for the food, bro, weight = " + this.weight);
+            System.out.println("Im happy " + this.species);
+        } else {
+            System.out.println("I'm a dead " + this.species + " bro, why are u feedin me? weight = " + this.weight);
+        }
+    }
+
+    @Override
+    public void feed(int foodWeight) {
+        if (weight > 0) {
+            this.weight += foodWeight;
             System.out.println("Thx for the food, bro, weight = " + this.weight);
             System.out.println("Im happy " + this.species);
         } else {
@@ -75,5 +90,17 @@ public class Animal implements Sellable {
             seller.setPet(null);
             System.out.println(this + " was sold successfully for " + price);
         }
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 }
