@@ -1,6 +1,6 @@
 package com.company;
 
-public class Animal {
+public class Animal implements Sellable {
     final private String species;
     private Double weight;
 
@@ -60,5 +60,20 @@ public class Animal {
                 "species='" + species + '\'' +
                 ", weight=" + weight +
                 '}';
+    }
+
+    @Override
+    public void sell(Human seller, Human buyer, Double price) {
+        if (this != seller.getPet()) {
+            System.out.println("You can't sell what you don't have");
+        } else if (buyer.getCash() < price) {
+            System.out.println("THe buyer doesn't have enough cash");
+        } else {
+            seller.setCash(seller.getCash() + price);
+            buyer.setCash(buyer.getCash() - price);
+            buyer.setPet(seller.getPet());
+            seller.setPet(null);
+            System.out.println(this + " was sold successfully for " + price);
+        }
     }
 }

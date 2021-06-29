@@ -8,6 +8,7 @@ public class Human {
     private Animal pet;
     private Car car;
     private Double salary;
+    private Double cash;
 
     static final public double DEFAULT_SALARY = 2000.0;
 
@@ -20,6 +21,20 @@ public class Human {
         this.car = car;
         this.salary = salary;
     }
+
+    public Animal getPet() {
+        return pet;
+    }
+
+    public Double getCash() {
+        return cash;
+    }
+
+    public void setCash(Double cash) {
+        this.cash = cash;
+    }
+
+
 
     public void setPet(Animal pet) {
         this.pet = pet;
@@ -69,6 +84,7 @@ public class Human {
                 "pet=" + pet +
                 ", car=" + car +
                 ", salary=" + salary +
+                ", cash=" + cash +
                 '}';
     }
 }
