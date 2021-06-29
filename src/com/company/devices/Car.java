@@ -1,14 +1,16 @@
 package com.company.devices;
 
-public class Car {
-    final private String model;
-    final private String producer;
+public class Car extends Device {
+
     private Double value;
 
-    public Car(String model, String producer, Double value) {
-        this.model = model;
-        this.producer = producer;
-        this.value =  value;
+    public Car(String producer, String model, Integer yearOfProduction, Double value) {
+        super(producer, model, yearOfProduction);
+        this.value = value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
     }
 
     public Double getValue() {
@@ -16,11 +18,17 @@ public class Car {
     }
 
     @Override
+    public void turnOn() {
+        System.out.println("*VROOM*");
+    }
+
+    @Override
     public String toString() {
         return "Car{" +
-                "model='" + model + '\'' +
+                "value=" + value +
                 ", producer='" + producer + '\'' +
-                ", value=" + value +
+                ", model='" + model + '\'' +
+                ", yearOfProduction=" + yearOfProduction +
                 '}';
     }
 }
