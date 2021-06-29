@@ -17,8 +17,21 @@ public class Human {
         this.pet = pet;
     }
 
+    public Car getCar() {
+        return this.car;
+    }
+
     public void setCar(Car car) {
-        this.car = car;
+        if (this.salary > car.getValue()) {
+            System.out.println("You purchased a car with cash");
+            this.car = car;
+            return;
+        } else if (salary > car.getValue()/12) {
+            System.out.println("You purchased a car in installments");
+            this.car = car;
+            return;
+        }
+        System.out.println("You can't buy this car. Go to a university, find a new job or ask for a promotion.");
     }
 
     public Double getSalary() {
@@ -27,7 +40,7 @@ public class Human {
         System.out.println("Current date and time: " + date) ;
         System.out.println("The salary is: " + salary);
 
-        return salary;
+        return this.salary;
     }
 
     public void setSalary(Double salary) {
