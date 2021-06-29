@@ -3,23 +3,31 @@ package com.company;
 import com.company.creatures.Animal;
 import com.company.devices.Car;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Human {
     private Animal pet;
-    private Car car;
+    private Car[] garage;
     private Double salary;
     private Double cash;
 
     static final public double DEFAULT_SALARY = 2000.0;
+    static final public int DEFAULT_GARAGE_SIZE = 5;
 
     public Human() {
         this.salary = DEFAULT_SALARY;
     }
 
-    public Human(Animal pet, Car car, Double salary) {
+    public Human(Animal pet, Double salary) {
         this.pet = pet;
-        this.car = car;
+        this.garage = new Car[DEFAULT_GARAGE_SIZE];
+        this.salary = salary;
+    }
+
+    public Human(Animal pet, Double salary, int garageSize) {
+        this.pet = pet;
+        this.garage = new Car[garageSize];
         this.salary = salary;
     }
 
@@ -35,33 +43,53 @@ public class Human {
         this.cash = cash;
     }
 
-
-
     public void setPet(Animal pet) {
         this.pet = pet;
     }
 
-    public Car getCar() {
-        return this.car;
+    public Car[] getGarage() {
+        return garage;
     }
 
-    public void setCar(Car car) {
-        if (this.salary > car.getValue()) {
-            System.out.println("You purchased a car with cash");
-            this.car = car;
-            return;
-        } else if (salary > car.getValue()/12) {
-            System.out.println("You purchased a car in installments");
-            this.car = car;
-            return;
+    public void setGarage(Car[] garage) {
+        this.garage = garage;
+    }
+
+    public Car getCar(int garageSpot) {
+        if (garageSpot < 0) {
+            System.out.println("A garage spot has to be a number above 0");
+            throw new IllegalArgumentException();
+        } else if (garageSpot > this.garage.length) {
+            System.out.println("This garage can only hold up to " + this.garage.length + " cars.");
+            throw new IllegalArgumentException();
+        } else {
+            return this.garage[garageSpot];
         }
-        System.out.println("You can't buy this car. Go to a university, find a new job or ask for a promotion.");
+    }
+
+    public void setCar(Car car, int garageSpot) {
+        if (garageSpot < 0) {
+            System.out.println("A garage spot has to be a number above 0");
+            throw new IllegalArgumentException();
+        } else if (garageSpot > this.garage.length) {
+            System.out.println("This garage can only hold up to " + this.garage.length + " cars.");
+            throw new IllegalArgumentException();
+        } else {
+
+
+
+
+                this.garage[garageSpot] = car;
+
+
+
+        }
     }
 
     public Double getSalary() {
         Date date = new Date();
 
-        System.out.println("Current date and time: " + date) ;
+        System.out.println("Current date and time: " + date);
         System.out.println("The salary is: " + salary);
 
         return this.salary;
@@ -79,11 +107,19 @@ public class Human {
         }
     }
 
+    public Double getCarsValue() {
+        Double sum = 0.0;
+        for (Car car : this.garage) {
+            sum += car.getValue();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         return "Human{" +
                 "pet=" + pet +
-                ", car=" + car +
+                ", garage=" + Arrays.toString(garage) +
                 ", salary=" + salary +
                 ", cash=" + cash +
                 '}';

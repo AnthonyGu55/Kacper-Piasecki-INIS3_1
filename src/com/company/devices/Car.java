@@ -1,20 +1,14 @@
 package com.company.devices;
 
-public abstract class Car extends Device {
+import com.company.Human;
+import com.company.Sellable;
 
-    private Double value;
+public abstract class Car extends Device implements Sellable {
+
 
     public Car(String producer, String model, Integer yearOfProduction, Double value) {
-        super(producer, model, yearOfProduction);
-        this.value = value;
-    }
+        super(producer, model, yearOfProduction, value);
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    public Double getValue() {
-        return this.value;
     }
 
     @Override
@@ -28,10 +22,59 @@ public abstract class Car extends Device {
     @Override
     public String toString() {
         return "Car{" +
-                "value=" + value +
-                ", producer='" + producer + '\'' +
+                "producer='" + producer + '\'' +
                 ", model='" + model + '\'' +
                 ", yearOfProduction=" + yearOfProduction +
+                ", value=" + value +
                 '}';
+    }
+
+    @Override
+    public void sell(Human seller, Human buyer, Double price) {
+        boolean hasCar = false;
+        int positionInGarage = 0;
+
+        for (int i = 0; i < seller.getGarage().length; i++) {
+            if (seller.getGarage()[i] == this) {
+                hasCar = true;
+                positionInGarage = i;
+                break;
+            }
+        }
+
+        if (!hasCar) {
+            System.out.println("The seller doesn't have the car in their garage");
+            throw new IllegalArgumentException();
+        }
+
+        boolean hasEmptySpace = false;
+        int emptyPosition = 0;
+
+        for (int i = 0; i < buyer.getGarage().length; i++) {
+            if (buyer.getGarage()[i] == null) {
+                hasEmptySpace = true;
+                emptyPosition = i;
+                break;
+            }
+        }
+
+        if (!hasEmptySpace) {
+            System.out.println("The buyer doesn't have any free space in their garage");
+            throw new IllegalArgumentException();
+        }
+
+        if (buyer.getCash() < this.getValue()) {
+            System.out.println("The buyer doesn't have enough cash");
+            throw new IllegalArgumentException();
+        }
+
+        buyer.setCar(seller.getCar(positionInGarage), emptyPosition);
+        seller.setCar(null, positionInGarage);
+
+        seller.setCash(seller.getCash() + this.getValue());
+        buyer.setCash(buyer.getCash() - this.getValue());
+
+        System.out.println("Car sold successfully");
+
     }
 }

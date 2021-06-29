@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Phone extends Device {
 
-    public Phone(String producer, String model, Integer yearOfProduction) {
-        super(producer, model, yearOfProduction);
+    public Phone(String producer, String model, Integer yearOfProduction, Double value) {
+        super(producer, model, yearOfProduction, value);
     }
 
     static final String DEFAULT_SERVER_ADDRESS = "www.google.com";
