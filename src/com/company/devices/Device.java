@@ -1,4 +1,3 @@
-
 package com.company.devices;
 
 public abstract class Device {

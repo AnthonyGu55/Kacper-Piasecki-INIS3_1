@@ -1,6 +1,6 @@
 package com.company.devices;
 
-public class Car extends Device {
+public abstract class Car extends Device {
 
     private Double value;
 
@@ -21,6 +21,9 @@ public class Car extends Device {
     public void turnOn() {
         System.out.println("*VROOM*");
     }
+
+
+    abstract void refuel();
 
     @Override
     public String toString() {
