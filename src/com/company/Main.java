@@ -4,22 +4,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Car fiat1 = new Car("126", "Fiat");
         Animal dog1 = new Animal("dog");
-        Animal cat1 = new Animal("cat");
 
-        dog1.takeForAWalk();
-        dog1.takeForAWalk();
-        dog1.takeForAWalk();
-        cat1.takeForAWalk();
-        cat1.feed();
-        dog1.feed();
-        dog1.takeForAWalk();
-        cat1.takeForAWalk();
-        cat1.takeForAWalk();
-        cat1.takeForAWalk();
-        dog1.takeForAWalk();
-        dog1.takeForAWalk();
-        dog1.feed();
+        Human human = new Human();
+        human.setCar(fiat1);
+        human.setPet(dog1);
 
 
     }
