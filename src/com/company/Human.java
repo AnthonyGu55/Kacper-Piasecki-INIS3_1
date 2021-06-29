@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.devices.Car;
+
 import java.util.Date;
 
 public class Human {
@@ -11,6 +13,12 @@ public class Human {
 
     public Human() {
         this.salary = DEFAULT_SALARY;
+    }
+
+    public Human(Animal pet, Car car, Double salary) {
+        this.pet = pet;
+        this.car = car;
+        this.salary = salary;
     }
 
     public void setPet(Animal pet) {
@@ -53,5 +61,14 @@ public class Human {
             System.out.println("ZUS and US already know about the new salary, don't try to hide it");
             this.salary = salary;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "pet=" + pet +
+                ", car=" + car +
+                ", salary=" + salary +
+                '}';
     }
 }

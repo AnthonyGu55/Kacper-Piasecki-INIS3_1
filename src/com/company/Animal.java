@@ -53,4 +53,12 @@ public class Animal {
             System.out.println("I'm a dead " + this.species + " bro, what do u want? weight = " + this.weight);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "species='" + species + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 }

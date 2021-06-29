@@ -1,4 +1,4 @@
-package com.company;
+package com.company.devices;
 
 public class Car {
     final private String model;
@@ -13,5 +13,14 @@ public class Car {
 
     public Double getValue() {
         return this.value;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "model='" + model + '\'' +
+                ", producer='" + producer + '\'' +
+                ", value=" + value +
+                '}';
     }
 }
