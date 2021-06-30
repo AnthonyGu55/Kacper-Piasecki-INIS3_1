@@ -3,12 +3,16 @@ package com.company.devices;
 import com.company.Human;
 import com.company.Sellable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Car extends Device implements Sellable {
 
+    private List<Human> owners;
 
     public Car(String producer, String model, Integer yearOfProduction, Double value) {
         super(producer, model, yearOfProduction, value);
-
+        this.owners = new ArrayList<>();
     }
 
     @Override
@@ -16,13 +20,13 @@ public abstract class Car extends Device implements Sellable {
         System.out.println("*VROOM*");
     }
 
-
     abstract void refuel();
 
     @Override
     public String toString() {
         return "Car{" +
-                "producer='" + producer + '\'' +
+                "owners=" + owners +
+                ", producer='" + producer + '\'' +
                 ", model='" + model + '\'' +
                 ", yearOfProduction=" + yearOfProduction +
                 ", value=" + value +
@@ -44,6 +48,10 @@ public abstract class Car extends Device implements Sellable {
 
         if (!hasCar) {
             System.out.println("The seller doesn't have the car in their garage");
+            throw new IllegalArgumentException();
+        }
+        if (this.owners.get(this.owners.size() - 1) != seller) {
+            System.out.println("The seller is not the last owner of the car");
             throw new IllegalArgumentException();
         }
 
@@ -74,7 +82,24 @@ public abstract class Car extends Device implements Sellable {
         seller.setCash(seller.getCash() + this.getValue());
         buyer.setCash(buyer.getCash() - this.getValue());
 
+
         System.out.println("Car sold successfully");
 
+    }
+
+    public void addOwner(Human human) {
+        this.owners.add(human);
+    }
+
+    public boolean wasItSold(Human seller, Human buyer) {
+        for (int i = 0; i < this.owners.size() - 1; i++) {
+            if (this.owners.get(i) == seller && this.owners.get(i + 1) == buyer) return true;
+        }
+
+        return false;
+    }
+
+    public int timesSold() {
+        return this.owners.size() - 1;
     }
 }

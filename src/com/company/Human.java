@@ -3,17 +3,18 @@ package com.company;
 import com.company.creatures.Animal;
 import com.company.devices.Car;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Human {
+    static final public double DEFAULT_SALARY = 2000.0;
+    static final public int DEFAULT_GARAGE_SIZE = 5;
     private Animal pet;
     private Car[] garage;
     private Double salary;
     private Double cash;
-
-    static final public double DEFAULT_SALARY = 2000.0;
-    static final public int DEFAULT_GARAGE_SIZE = 5;
 
     public Human() {
         this.salary = DEFAULT_SALARY;
@@ -35,6 +36,10 @@ public class Human {
         return pet;
     }
 
+    public void setPet(Animal pet) {
+        this.pet = pet;
+    }
+
     public Double getCash() {
         return cash;
     }
@@ -43,16 +48,24 @@ public class Human {
         this.cash = cash;
     }
 
-    public void setPet(Animal pet) {
-        this.pet = pet;
-    }
-
     public Car[] getGarage() {
         return garage;
     }
 
-    public void setGarage(Car[] garage) {
-        this.garage = garage;
+    public void sortGarage() {
+
+        Arrays.sort(this.garage, (o1, o2) -> {
+            if (o1 == null && o2 == null) {
+                return 0;
+            }
+            if (o1 == null) {
+                return 1;
+            }
+            if (o2 == null) {
+                return -1;
+            }
+            return Integer.compare(o1.getYearOfProduction(), o2.getYearOfProduction());
+        });
     }
 
     public Car getCar(int garageSpot) {
@@ -76,13 +89,10 @@ public class Human {
             throw new IllegalArgumentException();
         } else {
 
-
-
-
-                this.garage[garageSpot] = car;
-
-
-
+            this.garage[garageSpot] = car;
+            if (car != null) {
+                car.addOwner(this);
+            }
         }
     }
 
@@ -117,11 +127,22 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human{" +
+        String out = "Human{" +
                 "pet=" + pet +
-                ", garage=" + Arrays.toString(garage) +
                 ", salary=" + salary +
                 ", cash=" + cash +
-                '}';
+                ", garage= {";
+
+        List<String> carNames = new ArrayList<>();
+        for (Car car : this.garage) {
+            if (car != null) {
+                carNames.add(car.getModel());
+            }
+        }
+        out = out.concat(String.valueOf(carNames));
+
+        out = out.concat("}");
+
+        return out;
     }
 }

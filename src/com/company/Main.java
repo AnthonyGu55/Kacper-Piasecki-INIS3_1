@@ -33,10 +33,18 @@ public class Main {
         System.out.println(human2);
 
         car1.sell(human1, human2, 1.0);
+        car1.sell(human2, human1, 1.0);
+        car1.sell(human1, human2, 1.0);
 
         System.out.println(Arrays.toString(human1.getGarage()));
         System.out.println(Arrays.toString(human2.getGarage()));
 
+        human2.sortGarage();
+        System.out.println(Arrays.toString(human2.getGarage()));
+
+        System.out.println(car2.wasItSold(human1, human2));
+
+        System.out.println(car1.timesSold());
     }
 
 }

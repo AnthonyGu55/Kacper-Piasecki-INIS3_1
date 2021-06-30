@@ -1,9 +1,9 @@
 package com.company.devices;
 
 public abstract class Device {
-    final public String producer;
-    final public String model;
-    final public Integer yearOfProduction;
+    final protected String producer;
+    final protected String model;
+    final protected Integer yearOfProduction;
     public Double value;
 
 
@@ -15,15 +15,6 @@ public abstract class Device {
     }
 
     public abstract void turnOn();
-
-    @Override
-    public String toString() {
-        return "Device{" +
-                "producer='" + producer + '\'' +
-                ", model='" + model + '\'' +
-                ", yearOfProduction=" + yearOfProduction +
-                '}';
-    }
 
     public String getProducer() {
         return producer;
